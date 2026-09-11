@@ -60,3 +60,7 @@ Endpoints include `GET /api/products` (and the modular `GET /api/catalog/product
 ## Notes
 
 This is a self-contained demo storefront. Replace `JWT_SECRET`, use HTTPS, add a payment provider and add production-grade validation/rate limiting before launching publicly.
+
+## pull dockerHub image
+
+docker pull vjstylose/myntraa:latest
