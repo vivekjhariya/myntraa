@@ -1,0 +1,10 @@
+import { ArrowRight, Minus, Plus, Trash2 } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
+import EmptyState from '../components/ui/EmptyState'
+import { useStore } from '../hooks/useStore'
+import { money } from '../lib/format'
+export default function CartPage() {
+  const { cart, updateQty } = useStore(); const navigate = useNavigate(); const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0); const delivery = subtotal >= 799 || !subtotal ? 0 : 99
+  if (!cart.length) return <section className="page-section container"><EmptyState title="Your bag is waiting" text="Add something you love and it will appear here." action="Start shopping"/></section>
+  return <section className="page-section container"><div className="page-title"><div><span className="eyebrow">YOUR SELECTION</span><h1>Shopping bag <small>{cart.length} items</small></h1></div><Link className="back-link" to="/products">Continue shopping <ArrowRight size={15}/></Link></div><div className="cart-layout"><div className="cart-list">{cart.map(item => <article className="cart-item" key={item.id}><img src={item.image} alt={item.name}/><div className="cart-item-copy"><p className="product-brand">{item.brand}</p><h3>{item.name}</h3><strong>{money(item.price)}</strong><div className="qty-control"><button onClick={() => updateQty(item.id, item.qty - 1)}><Minus size={14}/></button><span>{item.qty}</span><button onClick={() => updateQty(item.id, item.qty + 1)}><Plus size={14}/></button></div></div><button className="remove-btn" onClick={() => updateQty(item.id, 0)} aria-label="Remove"><Trash2 size={17}/></button></article>)}</div><aside className="summary"><h2>Order summary</h2><div><span>Subtotal</span><b>{money(subtotal)}</b></div><div><span>Delivery</span><b>{delivery ? money(delivery) : 'Free'}</b></div><div className="summary-total"><span>Total</span><strong>{money(subtotal + delivery)}</strong></div><button className="primary-btn full-width" onClick={() => navigate('/checkout')}>Checkout <ArrowRight size={16}/></button><small>Free delivery on orders over ₹799</small></aside></div></section>
+}
