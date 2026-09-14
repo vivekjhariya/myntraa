@@ -9,9 +9,9 @@ pipeline {
         TAG                   = "latest"
         DOCKER_IMAGE_NAME     = "myntraa"
         DOCKERHUB_CREDENTIALS = "dockerHubCreds"
-        SONAR_TOKEN           = "sonar-token"
-        SONAR_INSTALLATION    = "sonarQube"
-        OWASP_INSTALLATION    = "OWASP Dependency Check"
+        SONAR_TOKEN           = "sonarqube"
+        SONAR_INSTALLATION    = "sonarqube"
+        OWASP_INSTALLATION    = "owasp"
         EMAIL                 = "vivekjhariya241@gmail.com"
     }
 
