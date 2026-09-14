@@ -21,7 +21,7 @@ pipeline {
         stage('Install Java') {
             steps {
                 script {
-                    jenkinsPluginInstallation()
+                    jenkinsPluginsInstallation()
                 }
             }
         }
