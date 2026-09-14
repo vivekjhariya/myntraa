@@ -80,7 +80,9 @@ pipeline {
                 owaspDependencyScan(
                     odcInstallation: "${OWASP_INSTALLATION}",
                     failOnCVSS: 7,
-                    scanPath: '.'
+                    scanPath: '.',
+                    nvdApiKeyId: 'nvd-api-key'
+                    
                 )
             }
         }
