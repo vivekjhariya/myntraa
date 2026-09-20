@@ -142,8 +142,21 @@ pipeline {
                 )
             }
         }
-
-        // 13. Deploy using Docker Compose
+        // 13. adding the credentials for mysql database enviroment
+        stage('Prepare Env File') {
+           steps {
+              mysqlCredentials(
+                 jwtCredId: 'jwt-secret',
+                 rootPassCredId: 'mysql-root-password',
+                 userPassCredId: 'mysql-password',
+                 dbName: 'myntraa_db',
+                dbUser: 'myntraa',
+                appPort: '3001',
+               envFile: '.env'
+            )
+        }
+     }
+      // 14. Deploy using Docker Compose
         stage('Deploy') {
             steps {
                 dockerDeploy(
@@ -153,7 +166,7 @@ pipeline {
             }
         }
 
-        // 14. Cleanup Old Images
+        // 15. Cleanup Old Images
         stage('Docker Cleanup') {
             steps {
                 dockerCleanup(
@@ -164,7 +177,7 @@ pipeline {
         }
     }
 
-    // 15. Email Notification
+    // 16. Email Notification
     post {
         success {
             emailNotify("SUCCESS", "${EMAIL}")
