@@ -23,7 +23,16 @@ COPY --chown=appuser:appgroup . .
 RUN npm run build
 
 # remove dev dependencies to reduce the image size
-RUN npm prune --omit=dev
+RUN npm prune --omit=dev \
+    && rm -rf node_modules/@esbuild \
+           node_modules/esbuild \
+           node_modules/vite \
+           node_modules/@vitejs \
+           node_modules/typescript \
+           node_modules/tsx \
+           node_modules/.cache \
+ && npm cache clean --force
+    
 
 # create output directory and copy the built frontend, API, dependencies, and
 # package metadata required by the production server
