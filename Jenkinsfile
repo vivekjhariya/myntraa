@@ -161,7 +161,7 @@ pipeline {
             steps {
                 dockerDeploy(
                     composeFile: 'docker-compose.yml',
-                    envFile: '.env'
+                    envFile: '.env',
                     pullImage: true
                 )
             }
