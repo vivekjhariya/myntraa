@@ -143,21 +143,21 @@ pipeline {
             }
         }
         // 13. adding the credentials for mysql database enviroment
-        stage('Prepare Env File') {
-           steps {
-              mysqlCredentials(
-                 jwtCredId: 'jwt-secret',
-                 rootPassCredId: 'mysql-root-password',
-                 userPassCredId: 'mysql-password',
-                 dbName: 'myntraa_db',
-                dbUser: 'myntraa',
-                appPort: '3001',
-               envFile: '.env'
-            )
+       stage('Prepare Env File') {
+            steps {
+                mysqlCredentials(
+                    jwtCredId: 'jwt-secret',
+                    rootPassCredId: 'mysql-root-password',
+                    userPassCredId: 'mysql-password',
+                    dbName: 'myntraa_db',
+                    dbUser: 'myntraa',
+                    appPort: '3001',
+                    envFile: '.env'
+                )
+            }
         }
-     }
       // 14. Deploy using Docker Compose
-        stage('Deploy') {
+       stage('Deploy') {
             steps {
                 dockerDeploy(
                     composeFile: 'docker-compose.yml',
