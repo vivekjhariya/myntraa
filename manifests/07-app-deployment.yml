@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mytraa-depo
+  namespace: mytraa-ns
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mytraa
+  template:
+    metadata:
+      labels:
+        app: mytraa
+    spec:
+      containers:
+      - name: mytraa-container
+        image: vjstylose/myntraa:latest
+        ports:
+        - containerPort: 3001
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: mytraa-config
+              key: NODE_ENV
+        - name: JWT_SECRET
+          valueFrom:
+            configMapKeyRef:
+              name: mytraa-config
+              key: JWT_SECRET
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: mytraa-config
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: mytraa-config
+              key: DB_PORT
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: mytraa-config
+              key: MYSQL_DATABASE
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: mytraa-config
+              key: MYSQL_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mytraa-secret
+              key: MYSQL_PASSWORD
+      

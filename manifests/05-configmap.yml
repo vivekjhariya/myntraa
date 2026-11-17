@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: mytraa-config
+   namespace: mytraa-ns
+data:
+  NODE_ENV: "prduction"
+  JWT_SECRET: "mytraa-secret-key"
+  MYSQL_DATABASE: "mytraa_db"
+  MYSQL_USER: "admin"
+  DB_HOST: "mysql-svc"
+  DB_PORT: "3306"  
